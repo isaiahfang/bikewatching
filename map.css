@@ -16,6 +16,12 @@ html, body {
     border-radius: 8px; /* Optional: rounded corners */
 }
 
+:root {
+    --color-departures: steelblue;
+    --color-arrivals: darkorange;
+    --color: color-mix(in oklch, var(--color-departures) calc(100% * var(--departure-ratio)), var(--color-arrivals));
+}
+
 #map svg {
     position: absolute;
     z-index: 1;
@@ -27,7 +33,13 @@ html, body {
         fill-opacity: 60%;
         stroke: white;
         pointer-events: auto;
+        fill: var(--color);
+        --color: color-mix(in oklch, var(--color-departures) calc(100% * var(--departure-ratio)), var(--color-arrivals));
     }
+}
+
+.legend > div {
+    --color: color-mix(in oklch, var(--color-departures) calc(100% * var(--departure-ratio)), var(--color-arrivals));
 }
 
 header {
@@ -53,4 +65,38 @@ label {
         display: block;
         text-align: right;
     }
+}
+
+.legend {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-block: 10px; 
+}
+
+.legend > div {
+    flex: 1;
+    padding: 10px 0;
+    text-align: center;
+    font-weight: bold;
+    color: white;
+    background-color: var(--color);
+    border: 1px solid #ccc;
+    gap: 1px;
+}
+
+.legend > div:nth-child(1) {
+    background-color: steelblue;
+    text-align: left;
+    padding-left: 0.5cm;
+}
+
+.legend > div:nth-child(2) {
+    background-color: color-mix(in oklch, steelblue 50%, darkorange 50%);
+}
+
+.legend > div:nth-child(3) {
+    background-color: darkorange;
+    text-align: right;
+    padding-right: 0.5cm;
 }
